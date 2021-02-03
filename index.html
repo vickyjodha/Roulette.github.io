@@ -123,8 +123,8 @@
             var arcd = arc * 180 / Math.PI;
             var index = Math.floor((360 - degrees % 360) / arcd);
             var data = options[index];
-            console.log(data);
-            var value = "$5";
+            // console.log(data);
+            var value = "$100";
             if (data == value && spinTime >= spinTimeTotal) {
                 stopRotateWheel();
                 return
@@ -133,7 +133,7 @@
             //     stopRotateWheel();
             //     return;
             // }
-            var spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+            var spinAngle = spinAngleStart + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
             startAngle += (spinAngle * Math.PI / 180);
             drawRouletteWheel();
             spinTimeout = setTimeout('rotateWheel()', 30);
