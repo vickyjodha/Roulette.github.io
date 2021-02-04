@@ -6,16 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-
+        .data {
+            content: "vikram singh";
+        }
+        
+        div {
+            max-width: 500px;
+        }
+        
+        #spin {
+            padding: 10px 20px;
+            border: 1px solid black;
+            border-radius: 9%;
+            color: white;
+            background-color: black;
+            cursor: pointer;
+            display: flex;
+            margin: auto;
+        }
+        
+        #spin:hover {
+            color: black;
+            background-color: white;
+            border: 1px solid black;
+        }
+        /* #spin {
+            width: 68px;
+            height: 68px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -34px 0 0 -34px;
+            border-radius: 50%;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 0px;
+            z-index: 1000;
+            background: #fff;
+            cursor: pointer;
+            font-family: 'Exo 2', sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+        
+        #spin:after {
+            content: "SPIN";
+            text-align: center;
+            line-height: 68px;
+            color: #CCC;
+            text-shadow: 0 2px 0 #fff, 0 -2px 0 rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 100000;
+            width: 68px;
+            height: 68px;
+            display: block;
+        }
+        
+        #spin:before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 20px 28px 20px;
+            border-color: transparent transparent #ffffff transparent;
+            top: -12px;
+            left: 14px;
+        } */
     </style>
 </head>
 
 <body>
-    <input type="button" value="spin" style="float:left;" id='spin' />
     <canvas id="canvas" width="500" height="500"></canvas>
+    <div>
+        <input type="button" value="spin" id='spin' />
+    </div>
     <script>
         var options = ["$130", "$105", "$100", "$10", "$25", "$250", "$30", "$1000", "$1", "$200", "$45", "$500", "$5", "$20", "Lose", "$1000000", "Lose", "$350", "$5", "$99"];
-
+        var color = ["red", "black", "yellow", "green", "pink", "red", "black", "IndianRed", "green", "pink", "red", "black", "IndianRed", "green", "pink", "red", "black", "IndianRed", "green", "pink"]
         var startAngle = 0;
         var arc = Math.PI / (options.length / 2);
         var spinTimeout = null;
@@ -28,34 +97,35 @@
 
         document.getElementById("spin").addEventListener("click", spin);
 
-        function byte2Hex(n) {
-            var nybHexString = "0123456789ABCDEF";
-            return String(nybHexString.substr((n >> 4) & 0x0F, 1)) + nybHexString.substr(n & 0x0F, 1);
-        }
+        // function byte2Hex(n) {
+        //     var nybHexString = "0123456789ABCDEF";
+        //     return String(nybHexString.substr((n >> 4) & 0x0F, 1)) + nybHexString.substr(n & 0x0F, 1);
+        // }
 
-        function RGB2Color(r, g, b) {
-            return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
-        }
+        // function RGB2Color(r, g, b) {
+        //     return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
+        // }
 
-        function getColor(item, maxitem) {
-            var phase = 0;
-            var center = 128;
-            var width = 127;
-            var frequency = Math.PI * 2 / maxitem;
+        // function getColor(item, maxitem) {
+        //     var phase = 0;
+        //     var center = 128;
+        //     var width = 127;
+        //     var frequency = Math.PI * 2 / maxitem;
 
-            red = Math.sin(frequency * item + 2 + phase) * width + center;
-            green = Math.sin(frequency * item + 0 + phase) * width + center;
-            blue = Math.sin(frequency * item + 4 + phase) * width + center;
-
-            return RGB2Color(red, green, blue);
-        }
+        //     red = Math.sin(frequency * item + 2 + phase) * width + center;
+        //     green = Math.sin(frequency * item + 0 + phase) * width + center;
+        //     blue = Math.sin(frequency * item + 4 + phase) * width + center;
+        //     console.log(red)
+        //     return RGB2Color(red, green, blue);
+        // }
 
         function drawRouletteWheel() {
             var canvas = document.getElementById("canvas");
             if (canvas.getContext) {
+
                 var outsideRadius = 200;
                 var textRadius = 160;
-                var insideRadius = 125;
+                var insideRadius = 50;
 
                 ctx = canvas.getContext("2d");
                 ctx.clearRect(0, 0, 500, 500);
@@ -67,30 +137,29 @@
 
                 for (var i = 0; i < options.length; i++) {
                     var angle = startAngle + i * arc;
-                    //ctx.fillStyle = colors[i];
-                    ctx.fillStyle = getColor(i, options.length);
-
+                    // ctx.fillStyle = colors[i];
+                    ctx.fillStyle = color[i];
+                    // ctx.fillStyle = getColor(i, options.length);
                     ctx.beginPath();
+                    ctx.strokeStyle = "black    ";
+
                     ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
                     ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
                     ctx.stroke();
-                    ctx.fill();
 
+                    ctx.fill();
                     ctx.save();
                     ctx.shadowOffsetX = -1;
                     ctx.shadowOffsetY = -1;
-                    ctx.shadowBlur = 0;
-                    ctx.shadowColor = "rgb(220,220,220)";
-                    ctx.fillStyle = "black";
+                    ctx.shadowBlur = 1;
+                    ctx.shadowColor = "rgb(229,220,220)";
+                    ctx.fillStyle = "white"
                     ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius,
                         250 + Math.sin(angle + arc / 2) * textRadius);
                     ctx.rotate(angle + arc / 2 + Math.PI / 2);
                     var text = options[i];
-                    // console.log(text);
-                    // if (options[i] == $130) {
-                    //     ctx.rotate().stop()
-                    // }
                     ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+
                     ctx.restore();
                 }
 
@@ -149,6 +218,7 @@
             ctx.save();
             ctx.font = 'bold 30px Helvetica, Arial';
             var text = options[index]
+            let name = "vikram"
             ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
             // console.log(spinTimeout)
             ctx.restore();
