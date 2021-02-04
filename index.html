@@ -131,7 +131,7 @@
     <div>
         <canvas id="canvas" width="500" height="500"></canvas>
         <button class="circleScaleBtn" value="spin" id='spin'><span>Spin </span></button>
-
+        <input type="number" value="3" id="getValue">
     </div>
 
     <script>
@@ -245,7 +245,10 @@
             var index = Math.floor((360 - degrees % 360) / arcd);
             var data = options[index];
             // console.log(data);
-            var value = "10";
+            let dd = document.getElementById("getValue").value;
+
+            // console.log(dd)
+            var value = dd;
             if (data == value && spinTime >= spinTimeTotal) {
                 stopRotateWheel();
                 return
