@@ -204,7 +204,7 @@
         function spin() {
             spinAngleStart = Math.random() * 10;
             spinTime = 0;
-            spinTimeTotal = Math.random() * 4 * 1000;
+            spinTimeTotal = Math.random() * 1 + 4 * 900;
             rotateWheel();
         }
 
@@ -217,13 +217,11 @@
             let getValue = document.getElementById("getValue").value;
             console.log(index);
             if (spinTime >= spinTimeTotal) {
-                spinAngleStart = Math.random() * 1;
+                spinAngleStart = Math.random();
                 spinTime = 0;
-                spinTimeTotal = Math.random() * 1 * 1000;
+                spinTimeTotal = Math.random() * 2 * 900;
                 if (data == getValue) {
-                    spinAngleStart / 50;
-                    spinTime = 0;
-                    spinTimeTotal / 50;
+
                     stopRotateWheel();
                     return1
                 }
