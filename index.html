@@ -6,77 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spin</title>
     <style>
-        /* #spin {
-            padding: 10px 20px;
-            border: 1px solid black;
-            border-radius: 9%;
-            color: white;
-            background-color: black;
-            cursor: pointer;
-            display: flex;
-            margin: auto;
-        }
-        
-        #spin:hover {
-            color: black;
-            background-color: white;
-            border: 1px solid black;
-        } */
-        /* #spin {
-            width: 68px;
-            height: 68px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin: -34px 0 0 -34px;
-            border-radius: 50%;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 0px;
-            z-index: 1000;
-            background: #fff;
-            cursor: pointer;
-            font-family: 'Exo 2', sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            -o-user-select: none;
-            user-select: none;
-        }
-        
-        #spin:after {
-            content: "SPIN";
-            text-align: center;
-            line-height: 68px;
-            color: #CCC;
-            text-shadow: 0 2px 0 #fff, 0 -2px 0 rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 100000;
-            width: 68px;
-            height: 68px;
-            display: block;
-        }
-        
-        #spin:before {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 20px 28px 20px;
-            border-color: transparent transparent #ffffff transparent;
-            top: -12px;
-            left: 14px;
-        } */
-        
-        canvas {
-            border: none !important;
-        }
-        
         body {
             background-color: #e74c3c;
         }
-        /* div {
-            display: flex;
-        } */
         
         .circleScaleBtn {
             margin-left: 28% !important;
@@ -149,7 +81,6 @@
         <canvas id="canvas" width="1000" height="500"></canvas>
         <button class="circleScaleBtn" value="spin" id='spin'><span>Spin </span></button>
         <input type="number" value="08" id="getValue">
-        <img src="bg.png" alt="" id="image" style="display: none;">
     </div>
 
     <script>
@@ -162,8 +93,6 @@
         var spinTime = 0;
         var spinArcStart = 10;
         var spinTimeTotal = 0;
-        var spint = 0;
-
         var ctx;
 
         document.getElementById("spin").addEventListener("click", spin);
@@ -290,11 +219,6 @@
             spinTimeTotal = Math.random() * 1 + 4 * 200;
             rotateWheel();
             let dis = document.getElementById("spin").disabled = true;
-            // dis.disabled = true;
-            // setTimeout(function() {
-            //     dis.disabled = false;
-            // }, 30000);
-
         }
 
         function rotateWheel() {
@@ -303,16 +227,9 @@
             var arcd = arc * 180 / Math.PI;
             var index = Math.floor((360 - degrees % 360) / arcd);
             var data = options[index];
-            let dd = document.getElementById("getValue").value;
-
-            var value = dd;
-            var indexnumber = options.findIndex(checkAdult = (age) => {
-                return age >= dd;
-            });
-            indexnumber = indexnumber + 1;
+            let value = document.getElementById("getValue").value;
 
             //  round routeat speed controller 
-            console.log(startAngle);
             if (startAngle == 0) {
                 startAngle = 8;
             } else {
@@ -321,66 +238,41 @@
                         startAngle += .15;
                     } else {
                         startAngle += .2;
-
                     }
-                    console.log("fast round");
-
                 } else if (startAngle <= 18 && 10 < startAngle) {
                     if (startAngle <= 14 && 10 < startAngle) {
                         startAngle += .1;
                     } else {
                         startAngle += .08;
                     }
-                    console.log("2nd fast round");
                 } else if (startAngle <= 24 && 18 < startAngle) {
                     if (startAngle <= 21 && 18 < startAngle) {
                         startAngle += .05;
                     } else {
                         startAngle += .04;
                     }
-                    console.log("3rd fast round");
-
                 } else if (24 < startAngle) {
-                    startAngle += .02;
-                    console.log("4th fast round");
+                    if (startAngle <= 26 && 24 < startAngle) {
+                        startAngle += .02;
+                    } else if (startAngle <= 27 && 26 < startAngle) {
+                        startAngle += .015;
+                    } else {
+                        startAngle += .013;
+                    }
                     if (data == value && spinTime >= spinTimeTotal) {
                         stopRotateWheel();
                         return
                     }
                 }
             }
-            //   startAngle += .12;
 
             drawRouletteWheel();
 
-            spinTimeout = setTimeout('rotateWheel()', 90);
+            spinTimeout = setTimeout('rotateWheel()', 120);
         }
 
 
-        // function rotateWheel() {
-        //     spinTime += 60;
-        //     var degrees = startAngle * 180 / Math.PI + 90;
-        //     var arcd = arc * 180 / Math.PI;
-        //     var index = Math.floor((360 - degrees % 360) / arcd);
-        //     var data = options[index];
-        //     let getValue = document.getElementById("getValue").value;
-        //     if (spinTime >= spinTimeTotal) {
-        //         spinAngleStart = Math.random();
-        //         spinTime = 0;
-        //         spinTimeTotal = Math.random() * 2 * 900;
-        //         if (data == getValue) {
 
-        //             stopRotateWheel();
-        //             return
-        //         }
-        //     }
-
-
-        //     var spinAngle = spinAngleStart + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
-        //     startAngle += (spinAngle * Math.PI / 180);
-        //     drawRouletteWheel();
-        //     spinTimeout = setTimeout('rotateWheel()', 120);
-        // }
 
         function stopRotateWheel() {
 
