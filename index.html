@@ -317,14 +317,27 @@
                 startAngle = 8;
             } else {
                 if (startAngle <= 10) {
-                    startAngle += .2;
+                    if (startAngle == 10) {
+                        startAngle += .15;
+                    } else {
+                        startAngle += .2;
+
+                    }
                     console.log("fast round");
 
                 } else if (startAngle <= 18 && 10 < startAngle) {
-                    startAngle += .1;
+                    if (startAngle <= 14 && 10 < startAngle) {
+                        startAngle += .1;
+                    } else {
+                        startAngle += .08;
+                    }
                     console.log("2nd fast round");
                 } else if (startAngle <= 24 && 18 < startAngle) {
-                    startAngle += .05;
+                    if (startAngle <= 21 && 18 < startAngle) {
+                        startAngle += .05;
+                    } else {
+                        startAngle += .04;
+                    }
                     console.log("3rd fast round");
 
                 } else if (24 < startAngle) {
