@@ -311,33 +311,33 @@
             });
             indexnumber = indexnumber + 1;
 
-            if (data == value && spinTime >= spinTimeTotal) {
-                stopRotateWheel();
-                return
-            }
-            // if (spinTime >= spinTimeTotal) {
-            //     stopRotateWheel();
-            //     return;
-            // }
+            //  round routeat speed controller 
+            console.log(startAngle);
+            if (startAngle == 0) {
+                startAngle = 8;
+            } else {
+                if (startAngle <= 10) {
+                    startAngle += .2;
+                    console.log("fast round");
 
-            // var spinAngle = spinAngleStart + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
-            // var spinAngle = 1 + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
-            // startAngle += (spinAngle * Math.PI / 180);
-            if (spinTime <= spinTimeTotal) {
-                startAngle += .8;
+                } else if (startAngle <= 18 && 10 < startAngle) {
+                    startAngle += .1;
+                    console.log("2nd fast round");
+                } else if (startAngle <= 24 && 18 < startAngle) {
+                    startAngle += .05;
+                    console.log("3rd fast round");
+
+                } else if (24 < startAngle) {
+                    startAngle += .02;
+                    console.log("4th fast round");
+                    if (data == value && spinTime >= spinTimeTotal) {
+                        stopRotateWheel();
+                        return
+                    }
+                }
             }
-            if (spinTime <= (spinTimeTotal / 2)) {
-                startAngle += (.06);
-            }
-            if (spinTime >= (spinTimeTotal / 4)) {
-                startAngle += (.03);
-            }
-            if (spinTime >= (spinTimeTotal / 8)) {
-                startAngle += (.007);
-            }
-            if (spinTime >= (spinTimeTotal / 10)) {
-                startAngle += (.002);
-            }
+            //   startAngle += .12;
+
             drawRouletteWheel();
 
             spinTimeout = setTimeout('rotateWheel()', 90);
