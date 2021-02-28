@@ -322,45 +322,25 @@
 
             // var spinAngle = spinAngleStart + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
             // var spinAngle = 1 + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
-            // let gg = spinAngle;
-            var gg = (spinTimeTotal / 2)
-                // console.log(gg);
-                // startAngle += (spinAngle * Math.PI / 180);
+            // startAngle += (spinAngle * Math.PI / 180);
             if (spinTime <= spinTimeTotal) {
-                startAngle += (.06);
-                console.log("name");
-                // console.log(startAngle += (.1));
-
+                startAngle += .8;
             }
             if (spinTime <= (spinTimeTotal / 2)) {
-                startAngle += (.05);
-                console.log("name1");
-                // console.log(startAngle += (.04));
-
+                startAngle += (.06);
             }
             if (spinTime >= (spinTimeTotal / 4)) {
-                startAngle += (.04);
-                console.log("name2");
-                // console.log(startAngle += (.01));
-
+                startAngle += (.03);
             }
-            if (spinTime >= (spinTimeTotal / 5)) {
-                startAngle += (.02);
-                console.log("name3");
-                // console.log(startAngle += (.01));
-
+            if (spinTime >= (spinTimeTotal / 8)) {
+                startAngle += (.007);
             }
-            if (spinTime >= (spinTimeTotal / 6)) {
-                startAngle += (.015);
-                console.log("name4");
-                // console.log(startAngle += (.01));
-
+            if (spinTime >= (spinTimeTotal / 10)) {
+                startAngle += (.002);
             }
             drawRouletteWheel();
-            var spint = 0;
-            spint += 90;
-            spinTimeout = setTimeout('rotateWheel()', spint);
-            // console.log(spinTimeTotal);
+
+            spinTimeout = setTimeout('rotateWheel()', 90);
         }
 
 
