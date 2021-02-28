@@ -67,6 +67,10 @@
             left: 14px;
         } */
         
+        canvas {
+            border: none !important;
+        }
+        
         body {
             background-color: #e74c3c;
         }
@@ -139,15 +143,17 @@
     </style>
 </head>
 
-<body>
+<body onload="drawRouletteWheel()">
     <div>
-        <canvas id="canvas" width="500" height="500"></canvas>
+        <canvas id="canvas" width="1000" height="500"></canvas>
         <button class="circleScaleBtn" value="spin" id='spin'><span>Spin </span></button>
         <input type="number" value="8" id="getValue">
+        <img src="bg.png" alt="" id="image" style="display: none;">
     </div>
 
     <script>
-        var options = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", ];
+        var options = ["1", "2dkjdfjkh", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", ];
+        // var options = ["vikram", "sinfhfhgh", "name", "dataa", "hjgjhd", "dfhfkjd", "jdhgjhf", "jdfhkjf", "kdkjf", "jkhfjkg", "jhfkf", "kfhkjgf", "lkdhkd", "dkhkjfd", "kjdfjk", "1hjk", "1;sjl7", "18jxlkf", "1lfkhl9", "2jhf0", ];
         var color = ["red", "black", "yellow", "green", "pink", "red", "black", "IndianRed", "green", "pink", "red", "black", "IndianRed", "green", "pink", "red", "black", "IndianRed", "green", "pink"]
         var startAngle = 0;
         var arc = Math.PI / (options.length / 2);
@@ -156,6 +162,7 @@
         var spinTime = 0;
         var spinArcStart = 10;
         var spinTimeTotal = 0;
+        var spint = 0;
 
         var ctx;
 
@@ -174,12 +181,36 @@
 
                 // ctx.strokeStyle = "black";
                 ctx.lineWidth = 0;
+                // for (var i = 0; i < options.length; i++) {
+                //     var count = options[i];
+                //     var bbb;
+                //     if (count.length <= 3) {
+                //         bbb = "17px";
+                //     }
+                //     if (count.length <= 7 && count.length >= 3) {
+                //         bbb = "12px";
+                //     }
+                //     if (count.length >= 7) {
+                //         bbb = "10px";
+                //     }
+                // }
 
-                ctx.font = 'bold 17px Helvetica, Arial';
+
 
                 for (var i = 0; i < options.length; i++) {
+                    var count = options[i];
+                    var bbb;
+                    if (count.length <= 3) {
+                        bbb = "17px";
+                    }
+                    if (count.length <= 7 && count.length >= 3) {
+                        bbb = "12px";
+                    }
+                    if (count.length >= 7) {
+                        bbb = "10px";
+                    }
+                    ctx.font = 'bold ' + bbb + ' Helvetica, Arial';
                     var angle = startAngle + i * arc;
-                    // ctx.fillStyle = color[i];
                     let ecolor;
                     if (i % 2 == 0) {
                         ecolor = "#e74c3c"
@@ -190,15 +221,17 @@
                     ctx.fillStyle = ecolor;
 
                     ctx.beginPath();
-                    ctx.shadowBlur = 10;
+                    ctx.shadowBlur = 2;
+                    ctx.shadowColor = "white";
+                    // ctx.shadowOffsetX = 10;
+                    // ctx.shadowOffsetY = 10;
 
-                    ctx.shadowColor = "black";
                     // ctx.strokeStyle = ecolor;
 
                     // ctx.strokeStyle = ecolor;
                     ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
                     ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
-                    ctx.stroke();
+                    // ctx.stroke();
                     ctx.fill();
                     ctx.save();
                     ctx.beginPath();
@@ -212,14 +245,23 @@
                         // eecolor = "#0f0f0f";
 
                     }
-                    ctx.shadowBlur = -10;
+                    var img = document.getElementById("image");
+                    var pat1 = ctx.createPattern(img, 'repeat');
+                    // ctx.fillRect(0, 0, 100, 100);
+                    ctx.shadowBlur = 0.2;
+                    // ctx.shadowOffsetX = 0;
+                    // ctx.shadowOffsetY = 0;
                     ctx.shadowColor = "black";
-                    ctx.fillStyle = eecolor;
+                    // ctx.fillStyle = eecolor;
                     // ctx.strokeStyle = eecolor;
+                    ctx.strokeStyle = pat1;
                     // ctx.fillStyle = "#443939bd";
+
+                    ctx.fillStyle = pat1;
+                    // ctx.style.bord
                     ctx.arc(250, 250, 150, angle, arc + angle, false);
                     ctx.arc(250, 250, 60, angle + arc, angle, true);
-                    ctx.stroke();
+                    // ctx.stroke();
                     ctx.fill();
                     ctx.save();
                     ctx.fillStyle = "white"
@@ -255,41 +297,95 @@
         function spin() {
             spinAngleStart = Math.random() * 10;
             spinTime = 0;
-            spinTimeTotal = Math.random() * 1 + 4 * 900;
+            spinTimeTotal = Math.random() * 1 + 4 * 200;
             rotateWheel();
-            let dis = document.getElementById("spin");
-            dis.disabled = true;
-            setTimeout(function() {
-                dis.disabled = false;
-            }, 30000);
+            let dis = document.getElementById("spin").disabled = true;
+            // dis.disabled = true;
+            // setTimeout(function() {
+            //     dis.disabled = false;
+            // }, 30000);
 
         }
 
         function rotateWheel() {
-            spinTime += 60;
+            spinTime += 30;
             var degrees = startAngle * 180 / Math.PI + 90;
             var arcd = arc * 180 / Math.PI;
             var index = Math.floor((360 - degrees % 360) / arcd);
             var data = options[index];
-            let getValue = document.getElementById("getValue").value;
-            console.log(getValue);
-            if (spinTime >= spinTimeTotal) {
-                spinAngleStart = Math.random();
-                spinTime = 0;
-                spinTimeTotal = Math.random() * 2 * 900;
-                if (data == getValue) {
+            let dd = document.getElementById("getValue").value;
 
-                    stopRotateWheel();
-                    return
-                }
+            var value = dd;
+            var indexnumber = options.findIndex(checkAdult = (age) => {
+                return age >= dd;
+            });
+            indexnumber = indexnumber + 1;
+
+            if (data == value && spinTime >= spinTimeTotal) {
+                stopRotateWheel();
+                return
             }
+            // if (spinTime >= spinTimeTotal) {
+            //     stopRotateWheel();
+            //     return;
+            // }
 
+            // var spinAngle = spinAngleStart + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+            // var spinAngle = 1 + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+            // let gg = spinAngle;
+            var gg = (spinTimeTotal / 2)
+                // console.log(gg);
+                // startAngle += (spinAngle * Math.PI / 180);
+            if (spinTime <= spinTimeTotal) {
+                startAngle += (.033);
+                console.log("name");
+                console.log(startAngle += (.1));
 
-            var spinAngle = spinAngleStart + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
-            startAngle += (spinAngle * Math.PI / 180);
+            }
+            if (spinTime <= (spinTimeTotal / 2)) {
+                startAngle += (.0322);
+                console.log("name1");
+                console.log(startAngle += (.04));
+
+            }
+            if (spinTime >= (spinTimeTotal / 4)) {
+                startAngle += (.03206);
+                console.log("name2");
+                console.log(startAngle += (.01));
+
+            }
             drawRouletteWheel();
-            spinTimeout = setTimeout('rotateWheel()', 120);
+            var spint = 0;
+            spint += 90;
+            spinTimeout = setTimeout('rotateWheel()', spint);
+            // console.log(spinTimeTotal);
         }
+
+
+        // function rotateWheel() {
+        //     spinTime += 60;
+        //     var degrees = startAngle * 180 / Math.PI + 90;
+        //     var arcd = arc * 180 / Math.PI;
+        //     var index = Math.floor((360 - degrees % 360) / arcd);
+        //     var data = options[index];
+        //     let getValue = document.getElementById("getValue").value;
+        //     if (spinTime >= spinTimeTotal) {
+        //         spinAngleStart = Math.random();
+        //         spinTime = 0;
+        //         spinTimeTotal = Math.random() * 2 * 900;
+        //         if (data == getValue) {
+
+        //             stopRotateWheel();
+        //             return
+        //         }
+        //     }
+
+
+        //     var spinAngle = spinAngleStart + easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+        //     startAngle += (spinAngle * Math.PI / 180);
+        //     drawRouletteWheel();
+        //     spinTimeout = setTimeout('rotateWheel()', 120);
+        // }
 
         function stopRotateWheel() {
 

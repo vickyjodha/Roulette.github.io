@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <style>
+        .spin {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            /* background-color: red; */
+            display: flex;
+            margin: auto;
+        }
+        
+        .fssf {
+            transform: rotate(60deg);
+            -webkit-transform: rotate(60deg);
+            -moz-transform: rotate(60deg);
+            -o-transform: rotate(60deg);
+            -ms-transform: rotate(60deg);
+            border-color: #16a085 transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div id="spin" class="spin">
+
+        </div>
+    </div>
+    <script>
+        var getNumber = 1;
+        var number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 3, 14, 15, 16, 17, 18, 19, 20];
+        var color = ["red", "black", "yellow", "green", "pink", "red", "black", "IndianRed", "green", "pink", "red", "black", "IndianRed", "green", "pink", "red", "black", "IndianRed", "green", "pink"]
+        var perDeg = 360 / number;
+        var rotatePer = perDeg * getNumber;
+        var getid = document.getElementById("spin");
+        getid.style.background = "red";
+        getid.style.transform = "rotate(7deg)";
+    </script>
+</body>
+
+</html>
